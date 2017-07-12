@@ -6,7 +6,14 @@ class SearchCtrl {
     constructor(){
         this.giphy = new Giphy();
     }
-    
+
+    /**
+     * Call to giphy then map our responses back with our business logic applied
+     * @param req
+     * @param res
+     * @param next
+     * @returns {*}
+     */
     doSearch(req, res, next) {
         const param = req.params.term || false;
         

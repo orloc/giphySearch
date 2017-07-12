@@ -3,12 +3,15 @@ import request from 'request';
 import * as q from "q";
 import * as _ from "lodash";
 
+/**
+ * Provides a layer between us and giphy with general authentication implemented
+ */
 class GiphyProvider {
 
     constructor(){
         this.giphyPath = 'http://api.giphy.com';
         this.apiVersion = 'v1';
-
+        
         this.apiKey = '986822963b8c4339a9e01f3d6c77513c';
         this.limit = 5;
         
