@@ -8,11 +8,7 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-dirPath="${DIR}/clara/tmp"
-nodeVersion="6.11.1"
-
-sysSetup &&
-applicationSetup
+dirPath="${DIR}/clara"
 
 # System Setup
 
@@ -21,24 +17,25 @@ function sysSetup() {
     # assumes empty machine
     echo "Creating file paths"
     mkdir $dirPath -p &&
-    cd $dirPath &&
-    echo "Downloading node setup"
-    curl -sL https://deb.nodesource.com/setup_$nodeVersion -o nodesource_setup.sh &&
-    echo "Executing setup" &&
-    chmod +x nodeousrce_setup.sh &&
-    exec nodesource_setup.sh &&
     echo "Updating system dependencies" &&
-    apt-get install nodejs npm git build-essentials &&
-    echo "Cleaning up" &&
-    cd .. &&
-    rmdir tmp
+    apt-get update &&
+    apt-get install nodejs npm git build-essential &&
+    if [ -f /usr/bin/node ]; then
+        echo "skipping linking"
+    else
+        ln -s /usr/bin/nodejs /usr/bin/node
+    fi
 }
 
 # Application Setup
 function applicationSetup(){
     echo "Fetching application" &&
-    git clone https://github.com/orloc/giphySearch.git  &&
-    cd giphySearch &&
-    npm install
+    git clone https://github.com/orloc/giphySearch.git  $dirPath/giphySearch &&
+    cd $dirPath/giphySearch &&
+    npm install gulp forever -g && npm install && gulp &&
+    echo "Setup Complete"
 }
 
+
+sysSetup &&
+applicationSetup
