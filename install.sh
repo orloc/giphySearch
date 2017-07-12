@@ -39,9 +39,6 @@ function applicationSetup(){
     echo "Fetching application" &&
     git clone https://github.com/orloc/giphySearch.git  &&
     cd giphySearch &&
-    npm install &&
-    
-
-    
+    npm install
 }
 
