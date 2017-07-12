@@ -11,7 +11,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 dirPath="${DIR}/clara/tmp"
 nodeVersion="6.11.1"
 
-sysSetup
+sysSetup &&
+applicationSetup
 
 # System Setup
 
@@ -35,7 +36,12 @@ function sysSetup() {
 
 # Application Setup
 function applicationSetup(){
-    echo "Fetching application"
+    echo "Fetching application" &&
+    git clone https://github.com/orloc/giphySearch.git  &&
+    cd giphySearch &&
+    npm install &&
+    
+
     
 }
 
